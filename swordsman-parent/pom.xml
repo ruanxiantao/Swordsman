@@ -16,6 +16,17 @@
         <relativePath/>
     </parent>
 
+	<modules>
+		<module>../swordsman-common</module>
+		<module>../swordsman-consumers</module>
+		<module>../swordsman-gateway</module>
+		<module>../swordsman-job</module>
+		<module>../swordsman-monitor</module>
+		<module>../swordsman-pay</module>
+		<module>../swordsman-user</module>
+		<module>../swordsman-wechat</module>
+	</modules>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
