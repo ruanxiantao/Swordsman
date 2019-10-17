@@ -99,7 +99,6 @@
 				<id>prod</id>
 				<properties>
 					<env>prod</env>
-					<docker-network>multi-host-network</docker-network>
 					<jvm.xms>2g</jvm.xms>
 					<jvm.xmx>2g</jvm.xmx>
 					<spring.profiles.active>m</spring.profiles.active>
