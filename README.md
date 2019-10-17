@@ -23,11 +23,26 @@
 
 ## 项目目录
 
+### 文档目录
+
 | 序号 | 目录  | 简介               |
 | ---- | ----- | ------------------ |
 | 01   | doc   | 此项目所有所需文档 |
 | 02   | sql   | 此项目所有所需SQL  |
 | 03   | error | 此项目所有异常文档 |
+
+### 代码目录
+
+| 序号 | 目录                | 简介             |
+| ---- | ------------------- | ---------------- |
+| 01   | swordsman-parent    | 父工程           |
+| 02   | swordsman-common    | 公共组件         |
+| 03   | swordsman-gateway   | 路由、限流、鉴权 |
+| 04   | swordsman-user      | 用户中心         |
+| 05   | swordsman-pay       | 支付中心         |
+| 06   | swordsman-consumers | 消费中心         |
+| 07   | swordsman-monitor   | 监控中心         |
+| 08   | swordsman-job       | 任务中心         |
 
 ## 功能清单
 
