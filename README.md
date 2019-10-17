@@ -43,6 +43,7 @@
 | 06   | swordsman-consumers | 消费中心         |
 | 07   | swordsman-monitor   | 监控中心         |
 | 08   | swordsman-job       | 任务中心         |
+| 09   | swordsman-wechat    | 微信端脚手架     |
 
 ## 功能清单
 
