@@ -33,6 +33,10 @@
         <java.version>1.8</java.version>
         <hutool.version>4.5.9</hutool.version>
         <lombok.version>1.18.6</lombok.version>
+		<swagger.version>2.9.2</swagger.version>
+		<swagger.models.version>1.5.21</swagger.models.version>
+		<aliyun-sdk-oss.version>2.8.3</aliyun-sdk-oss.version>
+		<aliyun-java-sdk-core>4.1.0</aliyun-java-sdk-core>
         <mysql-connector.version>5.1.47</mysql-connector.version>
 		<spring-cloud-alibaba.version>2.1.0.RELEASE</spring-cloud-alibaba.version>
 		<spring-cloud.version>Greenwich.SR1</spring-cloud.version>
@@ -56,15 +60,51 @@
                 <version>${hutool.version}</version>
             </dependency>
 
-            <!--mysql连接依赖-->
+            <!-- mysql连接依赖 -->
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql-connector.version}</version>
             </dependency>
 
+			<!--Swagger-->
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger-ui</artifactId>
+				<version>${swagger.version}</version>
 
-			<!--spring cloud版本依赖-->
+			</dependency>
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger2</artifactId>
+				<version>${swagger.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.swagger</groupId>
+				<artifactId>swagger-annotations</artifactId>
+				<version>${swagger.models.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.swagger</groupId>
+				<artifactId>swagger-models</artifactId>
+				<version>${swagger.models.version}</version>
+			</dependency>
+
+			<!-- 阿里 OSS -->
+			<dependency>
+				<groupId>com.aliyun.oss</groupId>
+				<artifactId>aliyun-sdk-oss</artifactId>
+				<version>${aliyun-sdk-oss.version}</version>
+			</dependency>
+
+			<!-- 阿里短信服务 -->
+			<dependency>
+				<groupId>com.aliyun</groupId>
+				<artifactId>aliyun-java-sdk-core</artifactId>
+				<version>${aliyun-java-sdk-core}</version>
+			</dependency>
+
+			<!-- Spring Cloud版本依赖 -->
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
@@ -72,7 +112,8 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<!--spring cloud alibaba版本依赖-->
+
+			<!-- Spring Cloud Alibaba版本依赖 -->
 			<dependency>
 				<groupId>com.alibaba.cloud</groupId>
 				<artifactId>spring-cloud-alibaba-dependencies</artifactId>
@@ -80,7 +121,8 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<!--spring boot admin版本依赖-->
+
+			<!-- Spring Boot Admin版本依赖 -->
 			<dependency>
 				<groupId>de.codecentric</groupId>
 				<artifactId>spring-boot-admin-dependencies</artifactId>
@@ -89,8 +131,6 @@
 				<scope>import</scope>
 			</dependency>
         </dependencies>
-
-
 
     </dependencyManagement>
 
@@ -107,36 +147,6 @@
 				<activation>
 					<activeByDefault>true</activeByDefault>
 				</activation>
-			</profile>
-			<profile>
-				<id>test</id>
-				<properties>
-					<env>test</env>
-					<jvm.xms>1g</jvm.xms>
-					<jvm.xmx>1g</jvm.xmx>
-					<spring.profiles.active>test</spring.profiles.active>
-					<version-suffix>_SNAPSHOT</version-suffix>
-				</properties>
-			</profile>
-			<profile>
-				<id>yc</id>
-				<properties>
-					<env>yc</env>
-					<jvm.xms>1g</jvm.xms>
-					<jvm.xmx>1g</jvm.xmx>
-					<spring.profiles.active>yc</spring.profiles.active>
-					<version-suffix>_SNAPSHOT</version-suffix>
-				</properties>
-			</profile>
-			<profile>
-				<id>fz</id>
-				<properties>
-					<env>fz</env>
-					<jvm.xms>2g</jvm.xms>
-					<jvm.xmx>2g</jvm.xmx>
-					<spring.profiles.active>fz</spring.profiles.active>
-					<version-suffix>_RELEASE</version-suffix>
-				</properties>
 			</profile>
 			<profile>
 				<id>prod</id>
