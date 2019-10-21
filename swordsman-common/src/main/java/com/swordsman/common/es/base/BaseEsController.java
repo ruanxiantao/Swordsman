@@ -1,8 +1,8 @@
 package com.swordsman.common.es.base;
 
-import com.beluga.api.es.core.CurrencyEsSearch;
-import com.beluga.api.web.Code;
-import com.beluga.api.web.ResultVo;
+import com.swordsman.common.es.core.CurrencyEsSearch;
+import com.swordsman.common.web.ApiResult;
+import com.swordsman.common.web.Status;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.NoRepositoryBean;
@@ -12,8 +12,8 @@ import java.util.List;
 
 /**
  * @Author DuChao
- * @Date 2019-09-10 11:43
- *
+ * @Date 2019-10-21 14:17
+ * Base ES Controller
  */
 @NoRepositoryBean
 public abstract class BaseEsController<T extends BaseEsEntity,M extends BaseEsService>{
@@ -23,51 +23,51 @@ public abstract class BaseEsController<T extends BaseEsEntity,M extends BaseEsSe
 
     @ApiOperation("根据 Id 查找")
     @GetMapping("findById/{id}")
-    public ResultVo findById(@PathVariable String id){
-        return new ResultVo(baseService.findById(id), Code.OK);
+    public ApiResult findById(@PathVariable String id){
+        return new ApiResult(baseService.findById(id));
     }
 
     @ApiOperation("根据 Id 修改")
     @PutMapping("{id}")
-    public ResultVo updateById(@PathVariable String id,@RequestBody T t){
-        return new ResultVo(baseService.update(id,t),Code.OK);
+    public ApiResult updateById(@PathVariable String id,@RequestBody T t){
+        return new ApiResult(baseService.update(id,t));
     }
 
     @ApiOperation("保存实体")
     @PostMapping
-    public ResultVo save(@RequestBody T t){
-        return new ResultVo(baseService.save(t), Code.OK);
+    public ApiResult save(@RequestBody T t){
+        return new ApiResult(baseService.save(t));
     }
 
     @ApiOperation("根据 Id 删除")
     @DeleteMapping("{id}")
-    public ResultVo deleteById(@PathVariable String id){
+    public ApiResult deleteById(@PathVariable String id){
         baseService.delete(id);
-        return new ResultVo(Code.OK);
+        return new ApiResult(Status.SUCCESS);
     }
 
     @ApiOperation("批量保存实体")
     @PostMapping("saveEntities")
-    public ResultVo saveEntities(@RequestBody List<T> t){
-        return new ResultVo(baseService.saveEntities(t), Code.OK);
+    public ApiResult saveEntities(@RequestBody List<T> t){
+        return new ApiResult(baseService.saveEntities(t));
     }
 
     @ApiOperation("统计总数")
     @GetMapping("count")
-    public ResultVo count(){
-        return new ResultVo(baseService.count(),Code.OK);
+    public ApiResult count(){
+        return new ApiResult(baseService.count());
     }
 
     @ApiOperation("多功能条件统计")
     @PostMapping("currencyEsCount")
-    public ResultVo currencyEsCount(@RequestBody CurrencyEsSearch search){
-        return new ResultVo(baseService.currencyEsCount(search),Code.OK);
+    public ApiResult currencyEsCount(@RequestBody CurrencyEsSearch search){
+        return new ApiResult(baseService.currencyEsCount(search));
     }
 
     @ApiOperation("多功能条件查询")
     @PostMapping("currencyEsSearch")
-    public ResultVo currencyEsSearch(@RequestBody CurrencyEsSearch search){
-        return new ResultVo(baseService.currencyEsSearch(search),Code.OK);
+    public ApiResult currencyEsSearch(@RequestBody CurrencyEsSearch search){
+        return new ApiResult(baseService.currencyEsSearch(search));
     }
 
 }
