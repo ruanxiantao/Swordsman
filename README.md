@@ -120,12 +120,12 @@
 | 序号 | 功能                                                         | 完成情况 | 完成人 |
 | ---- | ------------------------------------------------------------ | -------- | ------ |
 | 01   | 项目初始化、ReadMe 的编写                                    | ✅        | 超     |
-| 02   | 基于SpringBoot 的项目初始化<br />基于Docker 安装MySQL、MongoDB、ElasticSearch<br />Jenkins、RabbitMQ、Nacos、Sentinel、Redis 等基础服务 |          |        |
-| 03   | 基于SpringCloud Alibaba 的服务配置中心<br />基于SpringCloud Gateway 的路由限流 |          |        |
-| 04   | 基于SpringBoot Admin 的Java 项目监控中心<br />基于Durid 的SQL 监控中心 |          |        |
-| 05   | 基于Graylog 的日志中心<br />基于SpringBoot Email 的错误邮件  |          |        |
-| 06   | 基于Swagger 的接口文档<br />基于SpringData 的Jpa、Mongo、Redis、ElasticSearch<br />通用多功能CRUD一揽子 |          |        |
-| 07   | 基于Security 的RBAC权限模型<br />基于JWT + Redis 的单点登录  |          |        |
-| 08   | 基于SpringSocial 实现OAuth2 三方登录                         |          |        |
-| 09   | 基于XXL-JOB 实现分布式定时任务                               |          |        |
+| 02   | Common 项目的v1.0 开发                                       | ✅        | 超     |
+| 03   | 基于SpringBoot 的项目初始化<br />基于Docker 安装MySQL、MongoDB、ElasticSearch<br />Jenkins、RabbitMQ、Nacos、Sentinel、Redis 等基础服务 |          |        |
+| 04   | 基于SpringCloud Alibaba 的服务配置中心<br />基于SpringCloud Gateway 的路由限流 |          |        |
+| 05   | 基于SpringBoot Admin 的Java 项目监控中心<br />基于Durid 的SQL 监控中心 |          |        |
+| 06   | 基于Graylog 的日志中心<br />基于SpringBoot Email 的错误邮件  |          |        |
+| 07   | 基于Swagger 的接口文档<br />基于SpringData 的Jpa、Mongo、Redis、ElasticSearch<br />通用多功能CRUD一揽子 |          |        |
+| 08   | 基于Security 的RBAC权限模型<br />基于JWT + Redis 的单点登录  |          |        |
+| 09   | 基于SpringSocial 实现OAuth2 三方登录                         |          |        |
 
