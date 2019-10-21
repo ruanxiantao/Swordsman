@@ -8,9 +8,28 @@
         <artifactId>swordsman-parent</artifactId>
         <groupId>com.swordsman</groupId>
         <version>1.0.0-SNAPSHOT</version>
+       <relativePath>../swordsman-parent/pom.xml</relativePath>
     </parent>
 
     <artifactId>swordsman-user</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.swordsman</groupId>
+            <artifactId>swordsman-common</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
