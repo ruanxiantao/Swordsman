@@ -36,7 +36,6 @@ public class GlobalExceptionHandle {
      */
     @ExceptionHandler(Exception.class)
     public ApiResult handleAllException(Exception e) {
-        e.printStackTrace();
         if (e instanceof MethodArgumentNotValidException)   // Valid 校验异常处理
             return bindException(((MethodArgumentNotValidException) e).getBindingResult());
         else if (e instanceof BindException)    // Valid 校验异常处理
@@ -73,6 +72,7 @@ public class GlobalExceptionHandle {
 
         if (e.getMessage() != null)
             return new ApiResult(e.getMessage());
+        e.printStackTrace();
         return new ApiResult("系统异常，请及时联系管理员");
     }
 
