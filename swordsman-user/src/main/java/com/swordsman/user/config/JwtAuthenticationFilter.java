@@ -7,12 +7,13 @@ import com.swordsman.common.exception.StatusException;
 import com.swordsman.common.web.Status;
 import com.swordsman.user.service.CustomUserDetailsService;
 import com.swordsman.user.util.JwtUtil;
+import com.swordsman.user.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -31,6 +32,7 @@ import java.util.Set;
  * JWT 认证过滤器
  * 继承 OncePreRequestFilter : 在请求到达之前执行一次过滤器
  */
+@Configuration
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 
@@ -45,6 +47,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
+        String servletPath = request.getServletPath();
+        if (servletPath.contains(".css") || servletPath.contains(".js"))
+            filterChain.doFilter(request, response);
 
         if (checkIgnores(request)){
             filterChain.doFilter(request,response);
@@ -64,7 +70,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             filterChain.doFilter(request,response);
         } else {
-            throw new StatusException(Status.UNAUTHORIZED);
+            ResponseUtil.renderJson(response, Status.UNAUTHORIZED);
         }
 
     }

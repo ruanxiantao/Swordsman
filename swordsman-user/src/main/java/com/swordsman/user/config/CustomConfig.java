@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
  * 自定义忽略路径配置
  */
 @Data
-@Configuration
 @ConfigurationProperties(prefix = "custom.config")
 public class CustomConfig {
     /**

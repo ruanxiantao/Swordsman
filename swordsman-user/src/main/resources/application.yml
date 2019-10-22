@@ -1,0 +1,130 @@
+server:
+  port: 9001
+
+spring:
+  datasource:
+    # 使用阿里的Druid连接池
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://39.100.114.202:13307/swordsman?useUnicode=true&characeterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+    username: root
+    password: beluga@mysql.
+    ### Druid 数据源专用配置，对性能没有特别要求的话，可以不配置，系统采用默认值
+    # 监控页面相关配置
+    druid:
+      # 连接池的配置信息
+      # 初始化大小，最小，最大
+      initial-size: 5
+      min-idle: 5
+      maxActive: 20
+      # 配置获取连接等待超时的时间
+      maxWait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      # 打开PSCache，并且指定每个连接上PSCache的大小
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      filters: stat,wall,slf4j
+      # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      connectionProperties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
+      # 配置DruidStatFilter
+      web-stat-filter:
+        enabled: true
+        url-pattern: "/*"
+        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+      # 配置DruidStatViewServlet
+      stat-view-servlet:
+        url-pattern: "/druid/*"
+        # IP白名单(没有配置或者为空，则允许所有访问)
+        # allow: 127.0.0.1,192.168.163.1
+        # IP黑名单 (存在共同时，deny优先于allow)
+        # deny: 192.168.1.73
+        #  禁用HTML页面上的“Reset All”功能
+        reset-enable: false
+        # 登录名
+        login-username: swordsman
+        # 登录密码
+        login-password: swordsman
+
+  jpa:
+    show-sql: true
+    generate-ddl: false
+    hibernate:
+      ddl-auto: validate
+    open-in-view: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
+  data:
+    mongodb:
+      uri: mongodb://39.100.114.202:27077/swordsman
+
+  redis:
+    host: 39.100.114.202
+    port: 16279
+    password: beluga@redis.
+    # 连接超时时间(记得添加单位)
+    timeout: 10000ms
+    # 指定哪个库
+    database: 1
+    lettuce:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制） 默认 8
+        max-active: 8
+        # 连接池最大阻塞等待时间（使用负值表示没有限制） 默认 -1
+        max-wait: -1ms
+        # 连接池中的最大空闲连接 默认 8
+        max-idle: 8
+        # 连接池中的最小空闲连接 默认 0
+        min-idle: 0
+
+  # 时间格式配置
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+oss:
+  endpoint: oss-cn-beijing.aliyuncs.com
+  accessKeyId: LTAIicqhB9LDUwzm
+  accessKeySecret: YlJDNldMiiQ8iIxXrZ6G816r9zHuPB
+  bucketName: baijingins
+  urlPrefix: http://baijingins.oss-cn-beijing.aliyuncs.com/
+
+ali:
+  sms:
+    accessKeyId: LTAIicqhB9LDUwzm
+    accessKeySecret: YlJDNldMiiQ8iIxXrZ6G816r9zHuPB
+
+jwt:
+  config:
+    key: swordsman
+    ttl: 600000
+    remember: 604800000
+
+custom:
+  config:
+    ignores:
+      # 需要过滤的post 请求
+      post:
+        - "/auth/login"
+        - "/auth/logout"
+      # 需要过滤的请求，不限方法
+      pattern:
+        - "/sysUser/*"
+        - "/druid/*"
+        - "/webjars/*"
+        - "/swagger-ui.html"
+        - "/swagger-ui.html#/*"
+
+swagger:
+  title: swordsman-user
+  description: Swordsman 用户中心
+  version: 1.0.0
+
+
