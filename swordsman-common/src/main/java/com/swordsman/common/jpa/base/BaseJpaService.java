@@ -16,6 +16,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.scheduling.annotation.Async;
 
 import javax.persistence.EntityManager;
@@ -37,6 +38,7 @@ import java.util.concurrent.TimeUnit;
  * @Date 2019-10-21 11:55
  * Jpa Base Service
  */
+@NoRepositoryBean
 public class BaseJpaService<T extends BaseJpaEntity, M extends BaseJpaRepository<T>> {
 
     @Autowired
