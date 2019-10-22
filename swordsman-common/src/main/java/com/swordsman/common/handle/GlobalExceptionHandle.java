@@ -3,6 +3,7 @@ package com.swordsman.common.handle;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.json.JSONUtil;
 import com.swordsman.common.exception.CustomException;
+import com.swordsman.common.exception.StatusException;
 import com.swordsman.common.web.ApiResult;
 import com.swordsman.common.web.Status;
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +47,8 @@ public class GlobalExceptionHandle {
             return new ApiResult(Status.UNIQUE_CONSTRAINT);
         else if (e instanceof CustomException)   // 自定义异常处理
             return new ApiResult(e.getMessage());
+        else if (e instanceof StatusException)  // 自定义状态枚举异常
+            return new ApiResult(((StatusException) e).getStatus());
         else if (e instanceof NoHandlerFoundException){ // 未找到请求路径异常处理
             log.error("【全局异常拦截】NoHandlerFoundException: 请求方法 {}, 请求路径 {}", ((NoHandlerFoundException) e).getRequestURL(), ((NoHandlerFoundException) e).getHttpMethod());
             return new ApiResult(Status.REQUEST_NOT_FOUND);
