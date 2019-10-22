@@ -23,10 +23,17 @@ public abstract class BaseMongoController<T extends BaseMongoEntity,S extends Ba
     @Autowired
     protected S baseService;
 
-    @ApiOperation("分页查询")
-    @PostMapping("/page")
-    public ApiResult page(@ApiParam("分页参数") @RequestBody PageRequest pageRequest) {
-        return new ApiResult(baseService.page(pageRequest));
+    @ApiOperation("保存实体")
+    @PostMapping("/")
+    public ApiResult save(@Valid @RequestBody T entity) {
+        return new ApiResult(baseService.save(entity));
+    }
+
+    @ApiOperation("根据id删除实体")
+    @DeleteMapping("/{id}")
+    public ApiResult deleteById(@PathVariable String id) {
+        baseService.deleteEntityById(id);
+        return new ApiResult(Status.SUCCESS);
     }
 
     @ApiOperation("根据id更新实体")
@@ -41,30 +48,23 @@ public abstract class BaseMongoController<T extends BaseMongoEntity,S extends Ba
         return new ApiResult(baseService.findById(id));
     }
 
-    @ApiOperation("保存实体")
-    @PostMapping("/")
-    public ApiResult save(@Valid @RequestBody T entity) {
-        return new ApiResult(baseService.save(entity));
-    }
-
     @ApiOperation("批量保存")
     @PostMapping("/entities")
     public ApiResult saveEntities(@Valid @RequestBody ValidList<T> entities) {
         return new ApiResult(baseService.saveEntities(entities));
     }
 
-    @ApiOperation("根据ID删除实体")
-    @DeleteMapping("/{id}")
-    public ApiResult deleteEntityById(@PathVariable String id) {
-        baseService.deleteEntityById(id);
-        return new ApiResult(Status.SUCCESS);
-    }
-
-    @ApiOperation("删除多个实体")
+    @ApiOperation("批量删除")
     @DeleteMapping("/deleteBatch")
     public ApiResult deleteEntities(@RequestBody List<T> entities) {
         this.baseService.deleteEntities(entities);
         return new ApiResult(Status.SUCCESS);
+    }
+
+    @ApiOperation("分页查询")
+    @PostMapping("/page")
+    public ApiResult page(@ApiParam("分页参数") @RequestBody PageRequest pageRequest) {
+        return new ApiResult(baseService.page(pageRequest));
     }
 
     @ApiOperation("统计数据总数")
@@ -73,16 +73,16 @@ public abstract class BaseMongoController<T extends BaseMongoEntity,S extends Ba
         return new ApiResult(this.baseService.count());
     }
 
-    @ApiOperation("多功能通用查询")
-    @PostMapping("/currencySearch")
-    public ApiResult currencyMongoSearch(@RequestBody CurrencyMongoSearch currencyMongoSearch) {
-        return new ApiResult(baseService.currencyMongoSearch(currencyMongoSearch));
-    }
-
     @ApiOperation("多功能通用统计")
     @PostMapping("/currencyCount")
     public ApiResult currencyCount(@RequestBody CurrencyMongoSearch currencyMongoSearch) {
         return new ApiResult(baseService.currencyCount(currencyMongoSearch));
+    }
+
+    @ApiOperation("多功能通用查询")
+    @PostMapping("/currencySearch")
+    public ApiResult currencyMongoSearch(@RequestBody CurrencyMongoSearch currencyMongoSearch) {
+        return new ApiResult(baseService.currencyMongoSearch(currencyMongoSearch));
     }
 
     @ApiOperation("多功能通用查询，指定字段返回Map")
