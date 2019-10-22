@@ -37,9 +37,4 @@ public class IgnoreConfig {
      */
     private List<String> put = Lists.newArrayList();
 
-    /**
-     * 需要忽略的 OPTIONS 请求
-     */
-    private List<String> options = Lists.newArrayList();
-
 }

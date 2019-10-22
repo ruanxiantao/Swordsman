@@ -9,4 +9,8 @@ public interface Const {
 
     Integer USER_ENABLE = 1;
 
+    String JWT_PREFIX = "Security_Jwt_";
+
+    Integer PERMISSION_BUTTON = 2;
+
 }
