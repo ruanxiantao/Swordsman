@@ -18,6 +18,7 @@ import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.SearchResultMapper;
@@ -120,6 +121,19 @@ public class BaseEsService<T extends BaseEsEntity, M extends BaseEsDao<T>> {
     public void delete(String id) {
         redisUtil.delete(RedisConstant.ES + id);
         baseDao.deleteById(id);
+    }
+
+    @Async
+    public void deleteEntities(List<T> entities){
+        baseDao.deleteAll(entities);
+    }
+
+    /**
+     * 分页查询
+     */
+    public PageResult page(PageRequest pageRequest) {
+        Page<T> all = baseDao.findAll(pageRequest.pageable());
+        return PageResult.process(all);
     }
 
     /**
