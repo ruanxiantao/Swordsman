@@ -35,7 +35,7 @@
         <lombok.version>1.18.6</lombok.version>
 		<jjwt.veersion>0.9.1</jjwt.veersion>
 		<swagger.version>2.9.2</swagger.version>
-		<swagger.models.version>1.5.21</swagger.models.version>
+		<swagger.modles.version>1.5.21</swagger.modles.version>
 		<aliyun-sdk-oss.version>2.8.3</aliyun-sdk-oss.version>
 		<aliyun-java-sdk-core>4.1.0</aliyun-java-sdk-core>
         <mysql-connector.version>5.1.47</mysql-connector.version>
@@ -83,7 +83,7 @@
 				<version>${druid.version}</version>
 			</dependency>
 
-			<!-- Swagger -->
+			<!-- swagger -->
 			<dependency>
 				<groupId>io.springfox</groupId>
 				<artifactId>springfox-swagger-ui</artifactId>
@@ -97,12 +97,12 @@
 			<dependency>
 				<groupId>io.swagger</groupId>
 				<artifactId>swagger-annotations</artifactId>
-				<version>${swagger.models.version}</version>
+				<version>${swagger.modles.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>io.swagger</groupId>
 				<artifactId>swagger-models</artifactId>
-				<version>${swagger.models.version}</version>
+				<version>${swagger.modles.version}</version>
 			</dependency>
 
 			<!-- 阿里 OSS -->
