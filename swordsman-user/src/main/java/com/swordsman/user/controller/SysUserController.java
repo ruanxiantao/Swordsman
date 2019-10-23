@@ -8,7 +8,6 @@ import com.swordsman.user.pojo.SysUser;
 import com.swordsman.user.pojo.UserRole;
 import com.swordsman.user.service.SysUserService;
 import com.swordsman.user.service.UserRoleService;
-import com.swordsman.user.util.SecurityUtil;
 import com.swordsman.user.vo.AssignRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -51,12 +50,5 @@ public class SysUserController extends BaseJpaController<SysUser, SysUserService
         }
 
     }
-
-    @ApiOperation("获取当前用户信息")
-    @GetMapping("getUserInfo")
-    public ApiResult getUserInfo(){
-        return new ApiResult(SecurityUtil.getCurrentUser());
-    }
-
 
 }

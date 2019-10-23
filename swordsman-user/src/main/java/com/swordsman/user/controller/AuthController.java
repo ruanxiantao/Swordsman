@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Author DuChao
@@ -65,7 +67,10 @@ public class AuthController {
                     .setAuthentication(authentication);
 
             String jwt = jwtUtil.createJwt(authentication, loginRequest.getRememberMe());
-            return new ApiResult((Object)jwt);
+            Map<String,Object> map = new HashMap<>();
+            map.put("token",jwt);
+            map.put("userInfo",authentication.getPrincipal());
+            return new ApiResult(map);
         } catch (BadCredentialsException e){
             return new ApiResult(Status.USERNAME_PASSWORD_ERROR);
         }
