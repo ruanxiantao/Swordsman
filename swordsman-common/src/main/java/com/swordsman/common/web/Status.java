@@ -97,7 +97,18 @@ public enum Status {
     /**
      * 插入时有唯一索引约束
      */
-    UNIQUE_CONSTRAINT(6002,"插入数据有唯一约束!");
+    UNIQUE_CONSTRAINT(6002,"插入数据有唯一约束!"),
+
+    /**
+     * SQL 异常
+     */
+    SQL_ERROR(6003,"SQL执行异常，请及时联系管理员!"),
+
+    /**
+     * SQL 异常
+     */
+    NULL_POINTER_EXCEPTION(6004,"空指针异常，请及时联系管理员!");
+
 
     /**
      * 状态码

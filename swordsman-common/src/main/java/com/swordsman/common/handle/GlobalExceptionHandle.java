@@ -1,7 +1,8 @@
-package com.swordsman.user.handle;
+package com.swordsman.common.handle;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.json.JSONUtil;
+import com.alibaba.druid.sql.parser.ParserException;
 import com.swordsman.common.exception.CustomException;
 import com.swordsman.common.exception.StatusException;
 import com.swordsman.common.web.ApiResult;
@@ -74,12 +75,17 @@ public class GlobalExceptionHandle {
         }
         else if (e instanceof SQLException) {    // SQL 异常处理
             log.error("【全局异常拦截】SQLException: 错误信息 {}", e.getMessage());
-            return new ApiResult(Status.PARAM_NOT_NULL);
+            return new ApiResult(Status.SQL_ERROR);
+        }
+        else if (e instanceof NullPointerException) {    // SQL 异常处理
+            e.printStackTrace();
+            log.error("【全局异常拦截】NullPointerException: 错误信息 {}", e.getMessage());
+            return new ApiResult(Status.NULL_POINTER_EXCEPTION);
         }
 
         e.printStackTrace();
         if (e.getMessage() != null)
-            return new ApiResult(e.getMessage());
+            return new ApiResult(e.getMessage() + "\n 系统异常，请及时联系管理员 ");
         return new ApiResult("系统异常，请及时联系管理员");
     }
 
