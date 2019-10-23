@@ -20,6 +20,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.validation.ConstraintViolationException;
+import java.sql.SQLException;
 import java.util.NoSuchElementException;
 
 /**
@@ -71,10 +72,14 @@ public class GlobalExceptionHandle {
             log.error("【全局异常拦截】HttpMessageNotReadableException: 错误信息 {}", ((HttpMessageNotReadableException) e).getMessage());
             return new ApiResult(Status.PARAM_NOT_NULL);
         }
+        else if (e instanceof SQLException) {    // SQL 异常处理
+            log.error("【全局异常拦截】SQLException: 错误信息 {}", e.getMessage());
+            return new ApiResult(Status.PARAM_NOT_NULL);
+        }
 
+        e.printStackTrace();
         if (e.getMessage() != null)
             return new ApiResult(e.getMessage());
-        e.printStackTrace();
         return new ApiResult("系统异常，请及时联系管理员");
     }
 

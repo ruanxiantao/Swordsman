@@ -5,9 +5,11 @@ import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Sets;
 import com.swordsman.common.exception.StatusException;
 import com.swordsman.common.web.Status;
+import com.swordsman.user.constants.Const;
 import com.swordsman.user.service.CustomUserDetailsService;
 import com.swordsman.user.util.JwtUtil;
 import com.swordsman.user.util.ResponseUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -32,6 +34,7 @@ import java.util.Set;
  * JWT 认证过滤器
  * 继承 OncePreRequestFilter : 在请求到达之前执行一次过滤器
  */
+@Slf4j
 @Configuration
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
@@ -49,8 +52,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         String servletPath = request.getServletPath();
-        if (servletPath.contains(".css") || servletPath.contains(".js"))
+        boolean ignore = false;
+        for (String s : Const.IGNORE_SECURITY) {
+            if (servletPath.contains(s)){
+                ignore = true;
+                break;
+            }
+        }
+
+        if (Objects.equals(servletPath,"/"))
+            ignore = true;
+
+        if (ignore){
             filterChain.doFilter(request, response);
+            return;
+        }
 
         if (checkIgnores(request)){
             filterChain.doFilter(request,response);
@@ -70,6 +86,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             filterChain.doFilter(request,response);
         } else {
+            log.info("被过滤拦截的路径是 : {}",servletPath);
             ResponseUtil.renderJson(response, Status.UNAUTHORIZED);
         }
 

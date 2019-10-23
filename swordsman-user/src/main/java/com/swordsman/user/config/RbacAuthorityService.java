@@ -10,8 +10,11 @@ import com.swordsman.user.dao.SysPermissionDao;
 import com.swordsman.user.dao.SysRoleDao;
 import com.swordsman.user.pojo.SysPermission;
 import com.swordsman.user.pojo.SysRole;
+import com.swordsman.user.util.ResponseUtil;
 import com.swordsman.user.vo.UserPrincipal;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -22,6 +25,7 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -33,6 +37,7 @@ import java.util.stream.Collectors;
  * @Date 2019-10-22 10:58
  * 动态路由认证
  */
+@Slf4j
 @Component
 public class RbacAuthorityService {
 
@@ -45,7 +50,7 @@ public class RbacAuthorityService {
     @Autowired
     private RequestMappingHandlerMapping handlerMapping;
 
-    public boolean hasPermission(HttpServletRequest request, Authentication authentication) {
+    public boolean hasPermission(HttpServletRequest request,Authentication authentication) {
         checkRequest(request);
         Object userInfo = authentication.getPrincipal();
         boolean hasPermission = false;
@@ -101,12 +106,13 @@ public class RbacAuthorityService {
             AntPathRequestMatcher matcher = new AntPathRequestMatcher(uri);
             if (matcher.matches(request)) {
                 if (!urlMapping.get(uri).contains(method))
-                    throw new StatusException(Status.HTTP_BAD_METHOD);
+                    throw new AccessDeniedException(Status.BAD_REQUEST.getMessage());
                 else
                     return;
             }
         }
-        throw new StatusException(Status.REQUEST_NOT_FOUND);
+        log.info("没有找到的映射路径是 : {}",request.getServletPath());
+        throw new AccessDeniedException(Status.REQUEST_NOT_FOUND.getMessage());
     }
 
     /**

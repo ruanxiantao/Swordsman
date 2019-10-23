@@ -1,5 +1,6 @@
 package com.swordsman.user.service;
 
+import cn.hutool.core.collection.CollUtil;
 import com.swordsman.common.exception.CustomException;
 import com.swordsman.user.dao.SysPermissionDao;
 import com.swordsman.user.dao.SysRoleDao;
@@ -41,11 +42,17 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .orElseThrow(() -> new CustomException("未找到用户信息 : " + usernameOrEmailOrPhone));
 
         List<SysRole> roles = sysRoleDao.selectByUserId(user.getId());
-        List<String> roleIds = roles.stream()
-                .map(SysRole::getId)
-                .collect(Collectors.toList());
 
-        List<SysPermission> permissions = sysPermissionDao.selectByRoleIdList(roleIds);
+        List<SysPermission> permissions;
+        if (CollUtil.isEmpty(roles))
+            permissions = null;
+        else {
+            List<String> roleIds = roles.stream()
+                    .map(SysRole::getId)
+                    .collect(Collectors.toList());
+
+            permissions = sysPermissionDao.selectByRoleIdList(roleIds);
+        }
 
         return UserPrincipal.create(user,roles,permissions);
     }

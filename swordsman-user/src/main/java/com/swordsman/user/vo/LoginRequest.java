@@ -1,6 +1,5 @@
 package com.swordsman.user.vo;
 
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
@@ -14,7 +13,6 @@ import javax.validation.constraints.NotBlank;
  */
 @Data
 @ToString
-@ApiModel(value = "请求登录")
 public class LoginRequest {
 
     @NotBlank(message = "用户名不能为空")

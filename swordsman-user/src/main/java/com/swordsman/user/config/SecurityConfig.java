@@ -67,8 +67,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 所有请求都需要登录访问
                 .anyRequest()
                 .authenticated()
-                // 放行所有 option 请求
-                .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                 // RBAC 动态 url 认证
                 .anyRequest()
                 .access("@rbacAuthorityService.hasPermission(request,authentication)")
@@ -95,7 +93,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * @throws Exception
      */
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web) {
         WebSecurity and = web.ignoring().and();
 
         // 忽略 GET
@@ -112,5 +110,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // 按照请求格式忽略
         customConfig.getIgnores().getPattern().forEach(url -> and.ignoring().antMatchers(url));
+
+        // 忽略 Swagger 文档
+        web.ignoring()
+                .antMatchers("/null/**")
+                .antMatchers("/swagger-ui.html","/oauth/check_token")
+                .antMatchers("/webjars/**")
+                .antMatchers("/v2/**")
+                .antMatchers("/v3/**")
+                .antMatchers("/static/**")
+                .antMatchers("/favicon/**")
+                .antMatchers("/")
+                .antMatchers("/swagger-resources/**");
+
+        // 忽略 Druid 监控页面
+        web.ignoring()
+                .antMatchers("/druid/**");
+
+        web.ignoring()
+                // 忽略 options 请求
+                .antMatchers(HttpMethod.OPTIONS,"/**")
+                // 忽略 认证请求
+                .antMatchers("/auth/**");
+
     }
 }

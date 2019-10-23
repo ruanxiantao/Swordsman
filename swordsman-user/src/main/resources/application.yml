@@ -53,7 +53,7 @@ spring:
         login-password: swordsman
 
   jpa:
-    show-sql: true
+    show-sql: false
     generate-ddl: false
     hibernate:
       ddl-auto: validate
@@ -104,7 +104,7 @@ ali:
 jwt:
   config:
     key: swordsman
-    ttl: 600000
+    ttl: 86400000
     remember: 604800000
 
 custom:
@@ -112,19 +112,13 @@ custom:
     ignores:
       # 需要过滤的post 请求
       post:
-        - "/auth/login"
-        - "/auth/logout"
       # 需要过滤的请求，不限方法
       pattern:
         - "/sysUser/*"
-        - "/druid/*"
-        - "/webjars/*"
-        - "/swagger-ui.html"
-        - "/swagger-ui.html#/*"
+        - "/sysRole/*"
+        - "/sysPermission/*"
 
 swagger:
-  title: swordsman-user
+  title: Swordsman User
   description: Swordsman 用户中心
-  version: 1.0.0
-
-
+  version: 1.0
