@@ -56,7 +56,7 @@ public class AliSmsService {
         try {
             client.getCommonResponse(request);
         } catch (ClientException e) {
-            log.error("\r\n【短信发送异常】 : {}", e.getMessage());
+            log.error("\r\n【短信发送异常】 : {},手机号码为 : {}", e.getMessage(),phone);
         }
 
     }
