@@ -1,0 +1,12 @@
+server:
+  port: 9002
+
+# XXL-JOB 配置
+xxl:
+  job:
+    admin:
+      addresses: http://127.0.0.1:9101/xxl-job-admin
+    executor:
+      appname: swordsman-job-executor # 执行器名字
+      logpath: ./data/applogs/xxl-job/swordsman-job-executor # 日志输出路径
+      logretentiondays: 7 # 日志保存天数
