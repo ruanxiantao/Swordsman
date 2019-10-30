@@ -20,7 +20,7 @@
 		<module>../swordsman-common</module>
 		<module>../swordsman-consumers</module>
 		<module>../swordsman-gateway</module>
-		<module>../swordsman-job</module>
+		<module>../swordsman-job-executor</module>
 		<module>../swordsman-monitor</module>
 		<module>../swordsman-pay</module>
 		<module>../swordsman-user</module>
@@ -38,6 +38,7 @@
 		<swagger.modles.version>1.5.21</swagger.modles.version>
 		<aliyun-sdk-oss.version>2.8.3</aliyun-sdk-oss.version>
 		<aliyun-java-sdk-core>4.1.0</aliyun-java-sdk-core>
+		<xxl-job.version>2.1.0</xxl-job.version>
         <mysql-connector.version>5.1.47</mysql-connector.version>
 		<druid.version>1.1.10</druid.version>
 		<spring-cloud-alibaba.version>2.1.0.RELEASE</spring-cloud-alibaba.version>
@@ -144,6 +145,13 @@
 				<version>${spring-boot-admin.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
+			</dependency>
+
+			<!-- xxl-job-core -->
+			<dependency>
+				<groupId>com.xuxueli</groupId>
+				<artifactId>xxl-job-core</artifactId>
+				<version>${xxl-job.version}</version>
 			</dependency>
         </dependencies>
 
