@@ -61,6 +61,12 @@
             <artifactId>swagger-models</artifactId>
         </dependency>
 
+        <!-- 邮件依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
         <!-- 阿里 OSS -->
         <dependency>
             <groupId>com.aliyun.oss</groupId>

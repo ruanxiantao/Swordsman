@@ -3,11 +3,13 @@ package com.swordsman.common.handle;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.json.JSONUtil;
 import com.alibaba.druid.sql.parser.ParserException;
+import com.swordsman.common.email.MailService;
 import com.swordsman.common.exception.CustomException;
 import com.swordsman.common.exception.StatusException;
 import com.swordsman.common.web.ApiResult;
 import com.swordsman.common.web.Status;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
@@ -21,6 +23,8 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.validation.ConstraintViolationException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.sql.SQLException;
 import java.util.NoSuchElementException;
 
@@ -32,6 +36,9 @@ import java.util.NoSuchElementException;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandle {
+
+    @Autowired
+    private MailService mailService;
 
     /**
      * Exception 异常分类处理
@@ -83,9 +90,15 @@ public class GlobalExceptionHandle {
             return new ApiResult(Status.NULL_POINTER_EXCEPTION);
         }
 
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        e.printStackTrace(pw);
+
+        mailService.sendHtmlMail("duchao@baijingins.com","Swordsman 系统异常",sw.toString());
+
         e.printStackTrace();
         if (e.getMessage() != null)
-            return new ApiResult(e.getMessage() + "\n 系统异常，请及时联系管理员 ");
+            return new ApiResult(e.getMessage() + " 系统异常，请及时联系管理员 ");
         return new ApiResult("系统异常，请及时联系管理员");
     }
 
